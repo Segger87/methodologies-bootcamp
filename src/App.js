@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Shirtdesigner from './components/views/shirtDesigner/shirtdesigner';
 
 class App extends Component {
   render() {
@@ -12,7 +13,7 @@ class App extends Component {
             Edit <code>src/App.js</code> and save to reload.
           </p>
           <a
-            className="App-link"
+            className="App-link" 
             href="https://reactjs.org"
             target="_blank"
             rel="noopener noreferrer"
@@ -20,6 +21,7 @@ class App extends Component {
             Learn React
           </a>
         </header>
+        <Shirtdesigner />
       </div>
     );
   }
