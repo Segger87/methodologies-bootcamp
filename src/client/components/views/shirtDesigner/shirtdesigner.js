@@ -4,13 +4,13 @@ import { Box, Flex, Button, CanvasWrapper } from './styles';
 import ColorPicker from './colorPicker.js'
 import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
 import { SliderRail, Handle, Track, Tick } from './sliders/sliders';
-import tshirt from './icons/tshirt.png'
+import frontOfShirt from './icons/tshirt.png'
 import backOfShirt from './icons/backoftshirt.png'
 
 export default () => {
 const [selectedColor, setColor] = useState('black')
 const [selectedRadius, setRadius] = useState(1)
-const [shirtOrientation, setShirtOrientation] = useState(tshirt)  
+const [shirtOrientation, setShirtOrientation] = useState(frontOfShirt)  
 const [toggleCanvas, setToggleCanvas] = useState(false)   
 const domain = [1, 25];
 const defaultValues = [1];
@@ -39,7 +39,9 @@ const toggleCanvasDisplay = () => {
 }
 
 let front = '';
-let back = ''
+let back = '';
+let loadableFrontCanvas = '';
+let loadableBackCanvas = '';
 
 return (
 <Box>
@@ -53,7 +55,7 @@ return (
         gridColor="rgba(150,150,150,0.2)"
         backgroundColor="rgba(150,150,150,0.1)"
         catenaryColor={selectedColor}
-        imgSrc={tshirt}
+        imgSrc={frontOfShirt}
         /> 
         <CanvasDraw
             ref={canvasDraw => (back = canvasDraw)}
@@ -69,14 +71,63 @@ return (
     </CanvasWrapper>
     <button
             onClick={() => {
-                shirtOrientation === tshirt ? front.undo() : back.undo();
+                shirtOrientation === frontOfShirt ? front.undo() : back.undo();
             }}
           >
             Undo
           </button>
+          <button
+            onClick={() => {
+              localStorage.setItem(
+                shirtOrientation === frontOfShirt ? "savedFrontDrawing" : "savedBackDrawing",
+                shirtOrientation === frontOfShirt ? front.getSaveData() : back.getSaveData()
+              );
+            }}
+          >
+            Save
+          </button>
+          <CanvasWrapper showCanvas={!toggleCanvas}>
+            <CanvasDraw
+                disabled
+                ref={canvasDraw => (loadableFrontCanvas = canvasDraw)}
+                saveData={localStorage.getItem("savedFrontDrawing")}
+                canvasHeight='600px'
+                canvasWidth='500px'
+                brushColor={selectedColor}
+                brushRadius={selectedRadius}
+                gridColor="rgba(150,150,150,0.2)"
+                backgroundColor="rgba(150,150,150,0.1)"
+                catenaryColor={selectedColor}
+                imgSrc={frontOfShirt}
+                loadTimeOffset={20}
+            />
+            <CanvasDraw
+                disabled
+                ref={canvasDraw => (loadableBackCanvas = canvasDraw)}
+                saveData={localStorage.getItem("savedBackDrawing")}
+                canvasHeight='600px'
+                canvasWidth='500px'
+                brushColor={selectedColor}
+                brushRadius={selectedRadius}
+                gridColor="rgba(150,150,150,0.2)"
+                backgroundColor="rgba(150,150,150,0.1)"
+                catenaryColor={selectedColor}
+                imgSrc={backOfShirt}
+                loadTimeOffset={20} 
+            />
+        </CanvasWrapper>
+        <button
+          onClick={() => {
+            shirtOrientation === frontOfShirt ? loadableFrontCanvas.loadSaveData(
+              localStorage.getItem("savedFrontDrawing")
+            ) :loadableBackCanvas.loadSaveData(
+                localStorage.getItem("savedBackDrawing")
+              )
+          }}
+        >LOAD</button>
     <Flex flexDirection='column' alignItems='center'>
         <Flex>
-            <Button onClick={() => toggleShirtOrientation(tshirt)}>Front</Button>
+            <Button onClick={() => toggleShirtOrientation(frontOfShirt)}>Front</Button>
             <Button onClick={() => toggleShirtOrientation(backOfShirt)}>Back</Button>
         </Flex>
     <Flex>

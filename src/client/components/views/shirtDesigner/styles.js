@@ -40,7 +40,10 @@ export const Button = styled.button`
 `
 
 export const CanvasWrapper = styled.div`
-    ${props => props.showCanvas && css`
-    display: ${props.showCanvas ? 'block' : 'none'};
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    /* ${props => props.showCanvas && css`
+    display: ${props.showCanvas ? 'block' : 'none'}; */
   `}
 `
