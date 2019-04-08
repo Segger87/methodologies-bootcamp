@@ -5,6 +5,9 @@ export const Box = styled.div`
     ${props => props.mr && css`
     margin-right: ${props.mr};
   `}
+  ${props => props.ml && css`
+    margin-left: ${props.ml};
+  `}
 `
 export const TshirtFlex = styled.div`
     display: flex;
@@ -39,11 +42,26 @@ export const Button = styled.button`
     padding-right: 10px;
 `
 
-export const CanvasWrapper = styled.div`
+export const CanvasWrapperFront = styled.div`
     display: flex;
-    overflow: hidden;
-    justify-content: center;
-    /* ${props => props.showCanvas && css`
-    display: ${props.showCanvas ? 'block' : 'none'}; */
+    position: relative;
+    left: -2000px;
+    flex-direction: row;
+    overflow-x: hidden;
+    ${props => props.showCanvas && css`
+    left: ${props.showCanvas ? '500px' : '-2000px'};
+    transition: all ease-in-out .3s;
+  `}
+`
+
+export const CanvasWrapperBack = styled.div`
+    display: flex;
+    position: relative;
+    right: 2000px;
+    flex-direction: row;
+    overflow-x: hidden;
+    ${props => props.showCanvas && css`
+    right: ${props.showCanvas ? '0px' : '2000px'};
+    transition: all ease-in-out .3s;
   `}
 `

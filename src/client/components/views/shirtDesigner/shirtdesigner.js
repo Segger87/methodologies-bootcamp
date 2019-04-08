@@ -1,19 +1,25 @@
 import React, {useState} from 'react';
 import CanvasDraw from 'react-canvas-draw'
-import { Box, Flex, Button, CanvasWrapper } from './styles';
+import { Box, Flex, Button, CanvasWrapperFront, CanvasWrapperBack } from './styles';
 import ColorPicker from './colorPicker.js'
 import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
 import { SliderRail, Handle, Track, Tick } from './sliders/sliders';
 import frontOfShirt from './icons/tshirt.png'
 import backOfShirt from './icons/backoftshirt.png'
 
+
 export default () => {
 const [selectedColor, setColor] = useState('black')
+const [selectedShirtColor, setShirtColor] = useState('white')
 const [selectedRadius, setRadius] = useState(1)
 const [shirtOrientation, setShirtOrientation] = useState(frontOfShirt)  
 const [toggleCanvas, setToggleCanvas] = useState(false)   
 const domain = [1, 25];
 const defaultValues = [1];
+let front = '';
+let back = '';
+let loadableFrontCanvas = '';
+let loadableBackCanvas = '';
 
 const sliderStyle = {
     position: "relative",
@@ -25,51 +31,87 @@ const setColorState = (color) => {
     setColor(color)
 }
 
+const setShirtColorState = (color) => {
+    setShirtColor(color)
+}
+
 const setBrushRadius = (e) => {
     let [value] = e;
     setRadius(value)
 }
 
 const toggleShirtOrientation = (shirt) => {
+    toggleCanvasDisplay()
     setShirtOrientation(shirt)
 }
 
-const toggleCanvasDisplay = () => {
+const toggleCanvasDisplay = (orientation) => {
+
+    //TODO SET ORIENTATION NOT A BOOL TOGGLE
     setToggleCanvas(!toggleCanvas)
 }
 
-let front = '';
-let back = '';
-let loadableFrontCanvas = '';
-let loadableBackCanvas = '';
 
 return (
 <Box>
-    <CanvasWrapper showCanvas={!toggleCanvas}>
-        <CanvasDraw
-        ref={canvasDraw => (front = canvasDraw)}
-        canvasHeight='600px'
-        canvasWidth='500px'
-        brushColor={selectedColor}
-        brushRadius={selectedRadius}
-        gridColor="rgba(150,150,150,0.2)"
-        backgroundColor="rgba(150,150,150,0.1)"
-        catenaryColor={selectedColor}
-        imgSrc={frontOfShirt}
-        /> 
-        <CanvasDraw
-            ref={canvasDraw => (back = canvasDraw)}
+<Flex>
+            <Flex flexDirection='column' alignItems='center'>
+                <ColorPicker color='blue' />
+                <Button onClick={() => setShirtColorState('blue')}>Select</Button>
+            </Flex>
+
+            <Flex flexDirection='column' alignItems='center'>
+                <ColorPicker color='green'/>
+                <Button onClick={() => setShirtColorState('green')}>Select</Button>
+            </Flex>
+
+            <Flex flexDirection='column' alignItems='center'>
+                <ColorPicker color='red' />
+                <Button onClick={() => setShirtColorState('red')}>Select</Button>
+            </Flex>
+
+            <Flex flexDirection='column' alignItems='center'>
+                <ColorPicker color='black' />
+                <Button onClick={() => setShirtColorState('black')}>Select</Button>
+            </Flex>
+        </Flex>
+    <Flex>
+    <CanvasWrapperFront showCanvas={!toggleCanvas}>
+        <Box>
+            <CanvasDraw
+            ref={canvasDraw => (front = canvasDraw)}
             canvasHeight='600px'
             canvasWidth='500px'
             brushColor={selectedColor}
             brushRadius={selectedRadius}
             gridColor="rgba(150,150,150,0.2)"
-            backgroundColor="rgba(150,150,150,0.1)"
+            backgroundColor={selectedShirtColor}
             catenaryColor={selectedColor}
-            imgSrc={backOfShirt}
+            imgSrc={frontOfShirt}
         /> 
-    </CanvasWrapper>
-    <button
+        </Box>
+        </CanvasWrapperFront>
+        <CanvasWrapperBack showCanvas={toggleCanvas}>
+        <Box>
+            <CanvasDraw
+                ref={canvasDraw => (back = canvasDraw)}
+                canvasHeight='600px'
+                canvasWidth='500px'
+                brushColor={selectedColor}
+                brushRadius={selectedRadius}
+                gridColor="rgba(150,150,150,0.2)"
+                backgroundColor={selectedShirtColor}
+                catenaryColor={selectedColor}
+                imgSrc={backOfShirt}
+            /> 
+        </Box>
+        </CanvasWrapperBack>
+        </Flex>
+        <Flex>
+            <Button onClick={() => toggleShirtOrientation(frontOfShirt)}>Front</Button>
+            <Button onClick={() => toggleShirtOrientation(backOfShirt)}>Back</Button>
+        </Flex>
+        <button
             onClick={() => {
                 shirtOrientation === frontOfShirt ? front.undo() : back.undo();
             }}
@@ -86,7 +128,7 @@ return (
           >
             Save
           </button>
-          <CanvasWrapper showCanvas={!toggleCanvas}>
+          <CanvasWrapperFront showCanvas={!toggleCanvas}>
             <CanvasDraw
                 disabled
                 ref={canvasDraw => (loadableFrontCanvas = canvasDraw)}
@@ -96,7 +138,7 @@ return (
                 brushColor={selectedColor}
                 brushRadius={selectedRadius}
                 gridColor="rgba(150,150,150,0.2)"
-                backgroundColor="rgba(150,150,150,0.1)"
+                backgroundColor={selectedShirtColor}
                 catenaryColor={selectedColor}
                 imgSrc={frontOfShirt}
                 loadTimeOffset={20}
@@ -110,12 +152,12 @@ return (
                 brushColor={selectedColor}
                 brushRadius={selectedRadius}
                 gridColor="rgba(150,150,150,0.2)"
-                backgroundColor="rgba(150,150,150,0.1)"
+                backgroundColor={selectedShirtColor}
                 catenaryColor={selectedColor}
                 imgSrc={backOfShirt}
                 loadTimeOffset={20} 
             />
-        </CanvasWrapper>
+        </CanvasWrapperFront>
         <button
           onClick={() => {
             shirtOrientation === frontOfShirt ? loadableFrontCanvas.loadSaveData(
