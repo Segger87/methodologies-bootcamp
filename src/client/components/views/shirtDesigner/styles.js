@@ -27,6 +27,12 @@ export const Flex = styled.div`
   ${props => props.alignItems && css`
     align-items: ${props.alignItems};
   `}
+  ${props => props.justifyContent && css`
+    justify-content: ${props.justifyContent};
+  `}
+  ${props => props.width && css`
+    width: ${props.width};
+  `}
 `
 export const ColourBox = styled(Box)`
     height: 30px;
@@ -38,8 +44,11 @@ export const ColourBox = styled(Box)`
 export const Button = styled.button`
     width: 60px;
     height: 30px;
-    background-color: steelblue;
     padding-right: 10px;
+    ${props => props.color && css`
+    background-color: ${props.color};
+    ${props.color === 'white' ? 'color: black' : 'color: white'};
+  `}
 `
 
 export const CanvasWrapperFront = styled.div`
@@ -50,7 +59,7 @@ export const CanvasWrapperFront = styled.div`
     z-index: 1;
     width: 100%;
     ${props => props.showCanvas && css`
-    left: ${props.showCanvas ? '300px' : '-2000px'};
+    left: ${props.showCanvas ? '20px' : '-2000px'};
     transition: all ease-in-out .3s;
   `}
 `
@@ -70,11 +79,11 @@ export const CanvasWrapperFront = styled.div`
 export const CanvasWrapperLoad = styled.div`
     display: flex;
     position: relative;
-    right: 2000px;
+    right: -2000px;
     flex-direction: row;
     width: 100%;
     ${props => props.showCanvas && css`
-    right: ${props.showCanvas ? '650px' : '2000px'};
+    right: ${props.showCanvas ? '950px' : '-2000px'};
     transition: all ease-in-out .3s;
   `}
 `
