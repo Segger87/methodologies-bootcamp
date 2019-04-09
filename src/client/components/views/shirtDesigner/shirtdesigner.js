@@ -1,6 +1,13 @@
 import React, {useState} from 'react';
 import CanvasDraw from 'react-canvas-draw'
-import { Box, Flex, Button, CanvasWrapperFront, CanvasWrapperBack } from './styles';
+import {
+    Box,
+    Flex,
+    Button,
+    CanvasWrapperFront,
+    CanvasWrapperBack,
+    CanvasWrapperLoad
+} from './styles';
 import ColorPicker from './colorPicker.js'
 import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
 import { SliderRail, Handle, Track, Tick } from './sliders/sliders';
@@ -54,47 +61,32 @@ const toggleCanvasDisplay = (orientation) => {
 
 return (
 <Box>
-<Flex>
-            <Flex flexDirection='column' alignItems='center'>
-                <ColorPicker color='blue' />
-                <Button onClick={() => setShirtColorState('blue')}>Select</Button>
-            </Flex>
-
-            <Flex flexDirection='column' alignItems='center'>
-                <ColorPicker color='green'/>
-                <Button onClick={() => setShirtColorState('green')}>Select</Button>
-            </Flex>
-
-            <Flex flexDirection='column' alignItems='center'>
-                <ColorPicker color='red' />
-                <Button onClick={() => setShirtColorState('red')}>Select</Button>
-            </Flex>
-
-            <Flex flexDirection='column' alignItems='center'>
-                <ColorPicker color='black' />
-                <Button onClick={() => setShirtColorState('black')}>Select</Button>
-            </Flex>
-        </Flex>
     <Flex>
-    <CanvasWrapperFront showCanvas={!toggleCanvas}>
-        <Box>
-            <CanvasDraw
-            ref={canvasDraw => (front = canvasDraw)}
-            canvasHeight='600px'
-            canvasWidth='500px'
-            brushColor={selectedColor}
-            brushRadius={selectedRadius}
-            gridColor="rgba(150,150,150,0.2)"
-            backgroundColor={selectedShirtColor}
-            catenaryColor={selectedColor}
-            imgSrc={frontOfShirt}
-        /> 
-        </Box>
-        </CanvasWrapperFront>
-        <CanvasWrapperBack showCanvas={toggleCanvas}>
-        <Box>
-            <CanvasDraw
-                ref={canvasDraw => (back = canvasDraw)}
+        <Flex flexDirection='column' alignItems='center'>
+            <ColorPicker color='blue' />
+            <Button onClick={() => setShirtColorState('blue')}>Select</Button>
+        </Flex>
+
+        <Flex flexDirection='column' alignItems='center'>
+            <ColorPicker color='green'/>
+            <Button onClick={() => setShirtColorState('green')}>Select</Button>
+        </Flex>
+
+        <Flex flexDirection='column' alignItems='center'>
+            <ColorPicker color='red' />
+            <Button onClick={() => setShirtColorState('red')}>Select</Button>
+        </Flex>
+
+        <Flex flexDirection='column' alignItems='center'>
+            <ColorPicker color='black' />
+            <Button onClick={() => setShirtColorState('black')}>Select</Button>
+        </Flex>
+    </Flex>
+    <Flex>
+        <CanvasWrapperFront showCanvas={toggleCanvas}>
+            <Box>
+                <CanvasDraw
+                ref={canvasDraw => (front = canvasDraw)}
                 canvasHeight='600px'
                 canvasWidth='500px'
                 brushColor={selectedColor}
@@ -102,10 +94,57 @@ return (
                 gridColor="rgba(150,150,150,0.2)"
                 backgroundColor={selectedShirtColor}
                 catenaryColor={selectedColor}
-                imgSrc={backOfShirt}
+                imgSrc={frontOfShirt}
             /> 
-        </Box>
-        </CanvasWrapperBack>
+            </Box>
+            <Box>
+                <CanvasDraw
+                    ref={canvasDraw => (back = canvasDraw)}
+                    canvasHeight='600px'
+                    canvasWidth='500px'
+                    brushColor={selectedColor}
+                    brushRadius={selectedRadius}
+                    gridColor="rgba(150,150,150,0.2)"
+                    backgroundColor={selectedShirtColor}
+                    catenaryColor={selectedColor}
+                    imgSrc={backOfShirt}
+                /> 
+            </Box>
+            </CanvasWrapperFront>
+            <CanvasWrapperLoad showCanvas={!toggleCanvas}>
+            <Box>
+                <CanvasDraw
+                    disabled
+                    ref={canvasDraw => (loadableFrontCanvas = canvasDraw)}
+                    saveData={localStorage.getItem("savedFrontDrawing")}
+                    canvasHeight='600px'
+                    canvasWidth='500px'
+                    brushColor={selectedColor}
+                    brushRadius={selectedRadius}
+                    gridColor="rgba(150,150,150,0.2)"
+                    backgroundColor={selectedShirtColor}
+                    catenaryColor={selectedColor}
+                    imgSrc={frontOfShirt}
+                    loadTimeOffset={20}
+                />
+                </Box>
+                <Box>
+                <CanvasDraw
+                    disabled
+                    ref={canvasDraw => (loadableBackCanvas = canvasDraw)}
+                    saveData={localStorage.getItem("savedBackDrawing")}
+                    canvasHeight='600px'
+                    canvasWidth='500px'
+                    brushColor={selectedColor}
+                    brushRadius={selectedRadius}
+                    gridColor="rgba(150,150,150,0.2)"
+                    backgroundColor={selectedShirtColor}
+                    catenaryColor={selectedColor}
+                    imgSrc={backOfShirt}
+                    loadTimeOffset={20} 
+                />
+                </Box>
+            </CanvasWrapperLoad>
         </Flex>
         <Flex>
             <Button onClick={() => toggleShirtOrientation(frontOfShirt)}>Front</Button>
@@ -128,36 +167,7 @@ return (
           >
             Save
           </button>
-          <CanvasWrapperFront showCanvas={!toggleCanvas}>
-            <CanvasDraw
-                disabled
-                ref={canvasDraw => (loadableFrontCanvas = canvasDraw)}
-                saveData={localStorage.getItem("savedFrontDrawing")}
-                canvasHeight='600px'
-                canvasWidth='500px'
-                brushColor={selectedColor}
-                brushRadius={selectedRadius}
-                gridColor="rgba(150,150,150,0.2)"
-                backgroundColor={selectedShirtColor}
-                catenaryColor={selectedColor}
-                imgSrc={frontOfShirt}
-                loadTimeOffset={20}
-            />
-            <CanvasDraw
-                disabled
-                ref={canvasDraw => (loadableBackCanvas = canvasDraw)}
-                saveData={localStorage.getItem("savedBackDrawing")}
-                canvasHeight='600px'
-                canvasWidth='500px'
-                brushColor={selectedColor}
-                brushRadius={selectedRadius}
-                gridColor="rgba(150,150,150,0.2)"
-                backgroundColor={selectedShirtColor}
-                catenaryColor={selectedColor}
-                imgSrc={backOfShirt}
-                loadTimeOffset={20} 
-            />
-        </CanvasWrapperFront>
+          
         <button
           onClick={() => {
             shirtOrientation === frontOfShirt ? loadableFrontCanvas.loadSaveData(

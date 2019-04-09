@@ -47,21 +47,34 @@ export const CanvasWrapperFront = styled.div`
     position: relative;
     left: -2000px;
     flex-direction: row;
-    overflow-x: hidden;
+    z-index: 1;
+    width: 100%;
     ${props => props.showCanvas && css`
-    left: ${props.showCanvas ? '500px' : '-2000px'};
+    left: ${props.showCanvas ? '300px' : '-2000px'};
     transition: all ease-in-out .3s;
   `}
 `
 
-export const CanvasWrapperBack = styled.div`
+// export const CanvasWrapperBack = styled.div`
+//     display: flex;
+//     position: relative;
+//     right: 2000px;
+//     flex-direction: row;
+//     overflow-x: hidden;
+//     ${props => props.showCanvas && css`
+//     right: ${props.showCanvas ? '0px' : '2000px'};
+//     transition: all ease-in-out .3s;
+//   `}
+// `
+
+export const CanvasWrapperLoad = styled.div`
     display: flex;
     position: relative;
     right: 2000px;
     flex-direction: row;
-    overflow-x: hidden;
+    width: 100%;
     ${props => props.showCanvas && css`
-    right: ${props.showCanvas ? '0px' : '2000px'};
+    right: ${props.showCanvas ? '650px' : '2000px'};
     transition: all ease-in-out .3s;
   `}
 `
