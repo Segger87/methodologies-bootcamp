@@ -1,6 +1,15 @@
+const mysql = require('mysql');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mountRoutes = require('./router');
+
+// qq change these connection details
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: ''
+});
 
 const createApp = async () => {
   // await dbConnect(db);
