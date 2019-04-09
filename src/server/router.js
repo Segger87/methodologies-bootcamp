@@ -3,8 +3,8 @@ const express = require('express');
 const mountRoutes = () => {
   const router = express.Router();
 
-  router.get('/greeting', (req, res) => {
-    res.send({ greeting: `Hello world!` });
+  router.get('/hi', (req, res) => {
+    res.send('api says hellooooo');
   });
 
   router.get('*', (req, res) => {
