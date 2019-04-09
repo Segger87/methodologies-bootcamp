@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './styles/App.css';
-import Shirtdesigner from './components/views/shirtDesigner/shirtdesigner';
+import Header from "./components/shared/Header";
+import HomePage from './components/shared/HomePage';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Shirtdesigner />
+        <Header />
+        <HomePage />
       </div>
     );
   }

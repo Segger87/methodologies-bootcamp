@@ -11,20 +11,35 @@ const Header = props => {
             <MobileNavLinkWrapperSC>
                 <MobileNavLink />
             </MobileNavLinkWrapperSC>
-            <div>
+            <LogoWrapperSC>
                 <Logo />
-                {/* <p>
-                    Custom T-Shirts that make your parents say "Wow, that's a super rad custom T-Shirt you've got there
-                    my lovely nonbinary child".
-                </p> */}
-            </div>
+            </LogoWrapperSC>
             <AccountLinkWrapperSC>
-            <AccountLink />
+                <AccountLink />
             </AccountLinkWrapperSC>
             {props.isMobile ? <Nav /> : null}
+            <PromotionMessageSC>
+                <p>
+                    <strong>Free delivery</strong> on orders over £30
+                </p>
+            </PromotionMessageSC>
         </HeaderSC>
     );
 };
+
+const PromotionMessageSC = styled.div`
+    background: black;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-size: 10px;
+    p {
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        line-height: 17px;
+    }
+`;
 
 const Logo = () => {
     return (
@@ -50,6 +65,11 @@ const HeaderSC = styled.header`
     position: relative;
 `;
 
+const LogoWrapperSC = styled.div`
+    display: flex;
+    justify-content: center;
+`;
+
 const MobileNavLinkWrapperSC = styled.div`
     position: absolute;
     top: 0;
@@ -57,10 +77,9 @@ const MobileNavLinkWrapperSC = styled.div`
 `;
 
 const AccountLinkWrapperSC = styled.div`
-    position: absolute; 
-    top: 0;
+    position: absolute;
+    top: -5px;
     right: 0;
 `;
-
 
 export default Header;
