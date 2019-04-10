@@ -5,7 +5,6 @@ const mountRoutes = require('./router');
 const Mongo = require('./config/mongo');
 
 const createApp = async () => {
-  const mongodb = new Mongo();
 
   const app = express();
 

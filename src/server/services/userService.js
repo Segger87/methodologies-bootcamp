@@ -1,22 +1,27 @@
-const db = require('../config/mongo');
+const mongodb = require('../config/mongo');
+const mogno = new mongodb();
 
-exports.getUserByUsername = (username) => {
-  db.collection('users')
-    .find({ username })
-    .toArray()
-    .then(result => result);
+exports.getUserByUsername = username => {
+  return mogno.db.collection('users')
+    .find({ 'username' : username })
+    .toArray();
 };
 
-exports.getUserByEmail = (email) => {
-  db.collection('users')
-    .find({ email })
+exports.getUserByEmail = email => {
+  return mogno.db.collection('users')
+    .find({ 'email' : email })
     .toArray()
-    .then(result => result);
 };
 
-exports.usernameExists = username => getUserByUsername(username) != [];
+exports.queryUsers = (query='') => {
+  return mogno.db.collection('users')
+  .find()
+  .toArray();
+};
 
-exports.emailExists = email => getUserByEmail(email) != [];
+exports.usernameExists = username => getUserByUsername(username).then(result => result != []);
+
+exports.emailExists = email => getUserByEmail(email).then(result => {result != []});
 
 exports.createUser = (username, email, password, rp = 0) => {
   if (usernameExists(username)) {
@@ -28,7 +33,7 @@ exports.createUser = (username, email, password, rp = 0) => {
   const user = {
     username, email, password, rp,
   };
-  db.collection('users').insertOne(user, (err) => {
+  mogno.db.collection('users').insertOne(user, (err) => {
     if (err) return err;
     const user = getUserByUsername(username)[0];
     return user;
@@ -39,7 +44,7 @@ exports.deleteUser = (username, password) => {
   if (usernameExists(username)) {
     return 'user not found exists';
   }
-  db.collection('users').deleteOne({ username, password }, (err) => {
+  mogno.db.collection('users').deleteOne({ username, password }, (err) => {
     if (err) return err;
     const user = getUserByUsername(username)[0];
     return user;
