@@ -10,7 +10,7 @@ exports.index = async (req, res, next) => {
 
 exports.show = async (req, res, next) => {
   try {
-    res.status(200).json({ body: 'NOT IMPLEMENTED: User get' })
+    res.status(200).json({ body: 'NOT IMPLEMENTED: User get' });
   } catch (error) {
     next(error);
   }
@@ -28,7 +28,7 @@ exports.create = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
   try {
-    res.status().json({ body: 'NOT IMPLEMENTED: User update' })
+    res.status().json({ body: 'NOT IMPLEMENTED: User update' });
   } catch (error) {
     next(error);
   }
@@ -36,7 +36,7 @@ exports.update = async (req, res, next) => {
 
 exports.destroy = async (req, res, next) => {
   try {
-    res.status(204).send()
+    res.status(204).send();
   } catch (error) {
     next(error);
   }
