@@ -12,6 +12,7 @@ import { SliderRail, Handle, Track, Tick } from './sliders/sliders';
 import frontOfShirt from './icons/tshirt.png'
 import backOfShirt from './icons/backoftshirt.png'
 import { ChromePicker } from 'react-color';
+import ImageUploader from './imgUpload'
 
 
 export default () => {
@@ -239,5 +240,6 @@ return (
             }}>LOAD
         </button>
     </Box>
+    <ImageUploader />
 </Box>
 )}

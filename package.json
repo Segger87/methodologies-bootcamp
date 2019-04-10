@@ -13,6 +13,7 @@
     "react-color": "^2.17.0",
     "react-compound-slider": "^1.2.1",
     "react-dom": "^16.8.6",
+    "react-images-upload": "^1.2.6",
     "react-scripts": "2.1.8",
     "styled-components": "^4.2.0"
   },
