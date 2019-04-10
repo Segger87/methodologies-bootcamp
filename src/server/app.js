@@ -1,18 +1,11 @@
-const mysql = require('mysql');
 const express = require('express');
 const bodyParser = require('body-parser');
-const mountRoutes = require('./router');
 
-// qq change these connection details
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: ''
-});
+const mountRoutes = require('./router');
+const Mongo = require('./config/mongo');
 
 const createApp = async () => {
-  // await dbConnect(db);
+  const mongodb = new Mongo();
 
   const app = express();
 

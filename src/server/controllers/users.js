@@ -1,4 +1,4 @@
-const Users = require('../models/users');
+const User = require('../models/user');
 
 exports.index = async (req, res, next) => {
   try {
@@ -18,7 +18,17 @@ exports.show = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
-    res.status(201).json({ body: 'NOT IMPLEMENTED: User create' });
+    const { username, email, password } = req.body;
+
+    // if (username && email && isValidEmail(email)) {
+    //   User.create({
+    //     username,
+    //     email,
+    //     password,
+    //   })
+    // }
+
+    res.status(201).json({ created: username });
   } catch (error) {
     next(error);
   }
