@@ -64,18 +64,6 @@ export const CanvasWrapperFront = styled.div`
   `}
 `
 
-// export const CanvasWrapperBack = styled.div`
-//     display: flex;
-//     position: relative;
-//     right: 2000px;
-//     flex-direction: row;
-//     overflow-x: hidden;
-//     ${props => props.showCanvas && css`
-//     right: ${props.showCanvas ? '0px' : '2000px'};
-//     transition: all ease-in-out .3s;
-//   `}
-// `
-
 export const CanvasWrapperLoad = styled.div`
     display: flex;
     position: relative;
@@ -86,4 +74,15 @@ export const CanvasWrapperLoad = styled.div`
     right: ${props.showCanvas ? '950px' : '-2000px'};
     transition: all ease-in-out .3s;
   `}
+`
+
+export const ImgBox = styled.div`
+  position: absolute;
+  top: 160px;
+  left: 480px;
+  z-index: 999;
+  > img{
+     height: 320px;
+     width:220px;
+  }
 `
