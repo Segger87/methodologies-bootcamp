@@ -1,3 +1,1 @@
-module.exports = class Users {
-
-};
+module.exports = class Users {};
