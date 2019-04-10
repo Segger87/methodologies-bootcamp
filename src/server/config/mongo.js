@@ -11,10 +11,4 @@ module.exports = class Mongo {
             this.db = client.db('lgp');
         });
     }
-
-    userExists(username) {
-        this.db.collection('users').find({ 'username': username }).toArray().then((result) => {
-            return result != [];
-        });
-    }
 }
