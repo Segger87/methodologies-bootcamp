@@ -16,11 +16,13 @@ exports.userService = () =>{
 
     const usernameExists = username => getUserByUsername(username) != [];
 
+    const emailExists = email => getUserByEmail(email) != [];
+
     const createUser = (username, email, password, rp = 0)=>{
         if(usernameExists(username)){
             return 'username already exists'
         }
-        if(usernameExists(email)){
+        if(emailExists(email)){
             return 'email already in use'
         }
         let user = {'username' : username, 'email' : email, 'password' : password, 'rp' : rp}
