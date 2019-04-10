@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const UserService = require('../services/userService');
 
 exports.index = async (req, res, next) => {
   try {
@@ -19,14 +19,6 @@ exports.show = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
-
-    // if (username && email && isValidEmail(email)) {
-    //   User.create({
-    //     username,
-    //     email,
-    //     password,
-    //   })
-    // }
 
     res.status(201).json({ created: username });
   } catch (error) {
