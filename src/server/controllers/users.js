@@ -43,7 +43,14 @@ exports.update = async (req, res, next) => {
 
 exports.destroy = async (req, res, next) => {
   try {
-    res.status(204).send();
+    const { username, password } = req.body;
+    userService.deleteUser(username, password).then((result) => {
+      if (!result) {
+        res.status(204).send();
+      } else {
+        // raise error
+      }
+    });
   } catch (error) {
     next(error);
   }

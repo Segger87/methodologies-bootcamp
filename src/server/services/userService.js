@@ -35,24 +35,28 @@ exports.createUser = async (username, email, password, rp = 0) => {
     rp,
   };
 
-  return await mongodb.getDb().then(db => new Promise((resolve, reject) => {
-    db.collection('users').insertOne(user, (err) => {
-      if (err) reject(err);
-      const user = getUserByUsername(username)[0];
-      resolve(user);
-    });
-  }));
+  return await mongodb.getDb().then(
+    db => new Promise((resolve, reject) => {
+      db.collection('users').insertOne(user, (err) => {
+        if (err) reject(err);
+        const user = getUserByUsername(username)[0];
+        resolve(user);
+      });
+    }),
+  );
 };
 
 exports.deleteUser = async (username, password) => {
   if (await usernameExists(username)) {
     return 'user not found exists';
   }
-  return await mongodb.getDb().then(db => new Promise((resolve, reject) => {
-    db.collection('users').deleteOne({ username, password }, (err) => {
-      if (err) reject(err);
-      const user = getUserByUsername(username)[0];
-      reslove(user);
-    });
-  }));
+  return await mongodb.getDb().then(
+    db => new Promise((resolve, reject) => {
+      db.collection('users').deleteOne({ username, password }, (err) => {
+        if (err) reject(err);
+        const user = getUserByUsername(username)[0];
+        reslove(user);
+      });
+    }),
+  );
 };
