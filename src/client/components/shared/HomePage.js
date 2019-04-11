@@ -23,7 +23,7 @@ const HomePage = () => {
 const BannerSC = styled.div`
     background: url(${bannerImg});
     background-size: cover;
-    height: 270px;
+    height: 55vh;
     width: 100%;
     text-transform: uppercase;
     div {

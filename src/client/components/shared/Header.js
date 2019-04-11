@@ -2,43 +2,29 @@ import React from "react";
 import styled from "styled-components";
 
 import AccountLink from "./AccountLink";
-import MobileNavLink from "./MobileNavLink";
 import Nav from "./Nav";
 
 const Header = props => {
     return (
         <HeaderSC>
-            <MobileNavLinkWrapperSC>
-                <MobileNavLink />
-            </MobileNavLinkWrapperSC>
             <LogoWrapperSC>
                 <Logo />
             </LogoWrapperSC>
+            <NavSC>
+                <Nav />
+            </NavSC>
             <AccountLinkWrapperSC>
                 <AccountLink />
             </AccountLinkWrapperSC>
             {props.isMobile ? <Nav /> : null}
-            <PromotionMessageSC>
-                <p>
-                    <strong>Free delivery</strong> on orders over £30
-                </p>
-            </PromotionMessageSC>
         </HeaderSC>
     );
 };
 
-const PromotionMessageSC = styled.div`
-    background: black;
-    padding: 10px;
-    text-align: center;
-    color: white;
-    font-size: 10px;
-    p {
-        margin: 0;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        line-height: 17px;
-    }
+const NavSC = styled.nav`
+    position: absolute;
+    right: 0;
+    bottom: 0;
 `;
 
 const Logo = () => {
@@ -60,14 +46,18 @@ const Logo = () => {
         </svg>
     );
 };
+
 const HeaderSC = styled.header`
-    background: #7bcde2;
+    background: #e27b79;
     position: relative;
+    height: 100px;
+    display: flex;
+    border-bottom: 1px solid rgba(26,26,26,.5);
+    align-items: center;
 `;
 
 const LogoWrapperSC = styled.div`
-    display: flex;
-    justify-content: center;
+    padding: 10px;
 `;
 
 const MobileNavLinkWrapperSC = styled.div`
