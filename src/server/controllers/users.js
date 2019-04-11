@@ -12,7 +12,9 @@ exports.index = (req, res, next) => {
 
 exports.show = async (req, res, next) => {
   try {
-    res.status(200).json({ body: 'NOT IMPLEMENTED: User get' });
+    userService.queryUsers(req).then((res) => {
+      res.status(200).json({ users: result });
+    });
   } catch (error) {
     next(error);
   }
