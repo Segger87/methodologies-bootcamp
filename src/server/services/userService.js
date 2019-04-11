@@ -10,7 +10,7 @@ const getUserByEmail = async email => await mongodb.getDb().then(db => mongodb.d
   .find({ email })
   .toArray());
 
-const queryUsers = async (query = '') => await mongodb.getDb().then(db => db
+exports.queryUsers = async (query = '') => await mongodb.getDb().then(db => db
   .collection('users')
   .find()
   .toArray());
