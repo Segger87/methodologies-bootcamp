@@ -56,104 +56,103 @@ const toggleCanvasDisplay = (orientation) => {
 return (
 <Box>
     <Flex>
-    <Flex flexDirection='column'>
-        <Box ml='60px'>
-            <h1>Set your brush colour</h1>
-            <ChromePicker color={selectedColor} onChange={(e) => setColorState(e)}/>
-        </Box> 
-        <Box ml='30px'>
-        <h1>Select your shirt colour</h1>
-            <Flex>
-                <Flex flexDirection='column' alignItems='center'>
-                    <Button onClick={() => setShirtColorState('blue')} color={'blue'}>Blue</Button>
-                </Flex>
+        <Flex flexDirection='column'>
+            <Box ml='60px'>
+                <h1>Set your brush colour</h1>
+                <ChromePicker color={selectedColor} onChange={(e) => setColorState(e)}/>
+            </Box> 
+            <Box ml='30px'>
+            <h1>Select your shirt colour</h1>
+                <Flex>
+                    <Flex flexDirection='column' alignItems='center'>
+                        <Button onClick={() => setShirtColorState('blue')} color={'blue'}>Blue</Button>
+                    </Flex>
 
-                <Flex flexDirection='column' alignItems='center'>
-                    <Button onClick={() => setShirtColorState('green')} color={'green'}>Green</Button>
-                </Flex>
+                    <Flex flexDirection='column' alignItems='center'>
+                        <Button onClick={() => setShirtColorState('green')} color={'green'}>Green</Button>
+                    </Flex>
 
-                <Flex flexDirection='column' alignItems='center'>
-                    <Button onClick={() => setShirtColorState('red')} color={'red'}>Red</Button>
-                </Flex>
+                    <Flex flexDirection='column' alignItems='center'>
+                        <Button onClick={() => setShirtColorState('red')} color={'red'}>Red</Button>
+                    </Flex>
 
-                <Flex flexDirection='column' alignItems='center'>
-                    <Button onClick={() => setShirtColorState('black')} color={'black'}>Black</Button>
-                </Flex>
+                    <Flex flexDirection='column' alignItems='center'>
+                        <Button onClick={() => setShirtColorState('black')} color={'black'}>Black</Button>
+                    </Flex>
 
-                <Flex flexDirection='column' alignItems='center'>
-                    <Button onClick={() => setShirtColorState('white')} color={'white'}>White</Button>
+                    <Flex flexDirection='column' alignItems='center'>
+                        <Button onClick={() => setShirtColorState('white')} color={'white'}>White</Button>
+                    </Flex>
                 </Flex>
-            </Flex>
-        </Box>
-        <Box style={{ margin: "5%", height: 10, width: "100%" }}>
-        <h1>Set your brush radius</h1>
-            <Slider
-            mode={2}
-            step={1}
-            domain={domain}
-            rootStyle={sliderStyle}
-            values={defaultValues}
-            onChange={(e) => setBrushRadius(e)}
-            >
-                <Rail>
-                    {({ getRailProps }) => <SliderRail getRailProps={getRailProps} />}
-                </Rail>
-                <Handles>
-                    {({ handles, getHandleProps }) => (
-                    <div className="slider-handles">
-                        {handles.map(handle => (
-                        <Handle
-                            key={handle.id}
-                            handle={handle}
-                            domain={domain}
-                            getHandleProps={getHandleProps}
-                        />
-                        ))}
-                    </div>
-                    )}
-                </Handles>
-                <Tracks left={false} right={false}>
-                    {({ tracks, getTrackProps }) => (
-                    <div className="slider-tracks">
-                        {tracks.map(({ id, source, target }) => (
-                        <Track
-                            key={id}
-                            source={source}
-                            target={target}
-                            getTrackProps={getTrackProps}
-                        />
-                        ))}
-                    </div>
-                    )}
-                </Tracks>
-                <Ticks count={10}>
-                    {({ ticks }) => (
-                    <div className="slider-ticks">
-                        {ticks.map(tick => (
-                        <Tick key={tick.id} tick={tick} count={ticks.length} />
-                        ))}
-                    </div>
-                    )}
-                </Ticks>
-            </Slider>
-        </Box>
-    </Flex>     
-
-    <Flex>
-        <CanvasWrapperFront showCanvas={!toggleCanvas}>
-            <Box>
-                <CanvasDraw
-                ref={canvasDraw => (front = canvasDraw)}
-                canvasHeight='600px'
-                canvasWidth='500px'
-                brushColor={selectedColor}
-                brushRadius={selectedRadius}
-                gridColor="rgba(150,150,150,0.2)"
-                backgroundColor={selectedShirtColor}
-                catenaryColor={selectedColor}
-                imgSrc={frontOfShirt}
-            /> 
             </Box>
+            <Box style={{ margin: "5%", height: 10, width: "100%" }}>
+            <h1>Set your brush radius</h1>
+                <Slider
+                mode={2}
+                step={1}
+                domain={domain}
+                rootStyle={sliderStyle}
+                values={defaultValues}
+                onChange={(e) => setBrushRadius(e)}
+                >
+                    <Rail>
+                        {({ getRailProps }) => <SliderRail getRailProps={getRailProps} />}
+                    </Rail>
+                    <Handles>
+                        {({ handles, getHandleProps }) => (
+                        <div className="slider-handles">
+                            {handles.map(handle => (
+                            <Handle
+                                key={handle.id}
+                                handle={handle}
+                                domain={domain}
+                                getHandleProps={getHandleProps}
+                            />
+                            ))}
+                        </div>
+                        )}
+                    </Handles>
+                    <Tracks left={false} right={false}>
+                        {({ tracks, getTrackProps }) => (
+                        <div className="slider-tracks">
+                            {tracks.map(({ id, source, target }) => (
+                            <Track
+                                key={id}
+                                source={source}
+                                target={target}
+                                getTrackProps={getTrackProps}
+                            />
+                            ))}
+                        </div>
+                        )}
+                    </Tracks>
+                    <Ticks count={10}>
+                        {({ ticks }) => (
+                        <div className="slider-ticks">
+                            {ticks.map(tick => (
+                            <Tick key={tick.id} tick={tick} count={ticks.length} />
+                            ))}
+                        </div>
+                        )}
+                    </Ticks>
+                </Slider>
+            </Box>
+        </Flex>     
+        <Flex>
+            <CanvasWrapperFront showCanvas={!toggleCanvas}>
+                <Box>
+                    <CanvasDraw
+                    ref={canvasDraw => (front = canvasDraw)}
+                    canvasHeight='600px'
+                    canvasWidth='500px'
+                    brushColor={selectedColor}
+                    brushRadius={selectedRadius}
+                    gridColor="rgba(150,150,150,0.2)"
+                    backgroundColor={selectedShirtColor}
+                    catenaryColor={selectedColor}
+                    imgSrc={frontOfShirt}
+            /> 
+                </Box>
             <Box>
                 <CanvasDraw
                     ref={canvasDraw => (back = canvasDraw)}
@@ -203,43 +202,43 @@ return (
                 </Box>
             </CanvasWrapperLoad>
         </Flex>
-    </Flex>
-   
-      
-    <Box>
-        <Box>
-            <button
-                onClick={() => {
-                    front.undo()
-                    back.undo();
-            }}>Undo
-            </button>
-        </Box>
-        <Box>
-            <button
-                onClick={() => {
-                localStorage.setItem(
-                    "savedFrontDrawing",
-                    front.getSaveData()
-                );
-                localStorage.setItem(
-                    "savedBackDrawing",
-                    back.getSaveData()
-                );
-            }}>Save
-            </button>
-        </Box>
-        <button
-            onClick={() => {
-                toggleCanvasDisplay()
-                loadableFrontCanvas.loadSaveData(
-                localStorage.getItem("savedFrontDrawing")
-                ) && loadableBackCanvas.loadSaveData(
-                    localStorage.getItem("savedBackDrawing")
-                )
-            }}>LOAD
-        </button>
-    </Box>
+    </Flex>  
+        <Flex justifyContent='center'>
+            <Box mr='20px'>
+                <Button
+                    onClick={() => {
+                        front.undo()
+                        back.undo();
+                }}>Undo
+                </Button>
+            </Box>
+            <Box mr='20px'>
+                <Button
+                    onClick={() => {
+                    localStorage.setItem(
+                        "savedFrontDrawing",
+                        front.getSaveData()
+                    );
+                    localStorage.setItem(
+                        "savedBackDrawing",
+                        back.getSaveData()
+                    );
+                }}>Save
+                </Button>
+            </Box>
+            <Box>
+                <Button
+                    onClick={() => {
+                        toggleCanvasDisplay()
+                        loadableFrontCanvas.loadSaveData(
+                        localStorage.getItem("savedFrontDrawing")
+                        ) && loadableBackCanvas.loadSaveData(
+                            localStorage.getItem("savedBackDrawing")
+                        )
+                    }}>LOAD
+                </Button>
+            </Box>
+        </Flex>
     <ImageUploader />
 </Box>
 )}

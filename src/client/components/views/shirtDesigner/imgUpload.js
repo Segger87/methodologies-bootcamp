@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import ImageUploader from 'react-images-upload';
-import { ImgBox } from './styles';
-
+import { ImgBox, Box } from './styles';
  
 export default () => {
 
@@ -13,7 +12,7 @@ const [pictures, setPictures] = useState([])
             //console.log(pictures)
         })
     }
-    const readFile=([file])=> {
+    const readFile = ([file]) => {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
           // Read the image via FileReader API and save image result in state.
@@ -27,23 +26,30 @@ const [pictures, setPictures] = useState([])
           reader.readAsDataURL(file);
         });
       }
+
+    const removeImage = (index) => {
+        const pic = [{...pictures}]
+
+        pic.splice(index - 1, 1);
+        setPictures(pic);
+    }
  
     return (
-        <div>
+        <Box>
              <ImageUploader
                 withIcon={true}
                 buttonText='Choose images'
                 onChange={(e) => onDrop(e)}
-                imgExtension={['.jpg', '.gif', '.png', '.gif', '.svg']}
+                imgExtension={['.jpg', '.gif', '.png', '.gif', '.svg', '.jpeg']}
                 maxFileSize={5242880}
             />
 
-            {pictures.map((pic, index) =>(
-                <ImgBox key={index}>
-                    <img src={pic} alt="preview"/>
-                </ImgBox>
-            ))}
-        </div>
+        {pictures.map((pic, index) =>(
+            <ImgBox key={index} onClick={() => removeImage(index)}>
+                <img src={pic} alt="preview"/>
+            </ImgBox>
+        ))}
+        </Box>
        
     );
 }

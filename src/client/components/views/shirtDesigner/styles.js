@@ -43,8 +43,15 @@ export const ColourBox = styled(Box)`
 `
 export const Button = styled.button`
     width: 60px;
+    margin-right: 10px;
+    margin-top: 10px;
     height: 30px;
+    cursor: pointer;
     padding-right: 10px;
+    border-radius: 10%;
+    background-color: rgb(255, 196, 0);
+    text-transform: uppercase;
+    color: grey;
     ${props => props.color && css`
     background-color: ${props.color};
     ${props.color === 'white' ? 'color: black' : 'color: white'};
@@ -71,7 +78,7 @@ export const CanvasWrapperLoad = styled.div`
     flex-direction: row;
     width: 100%;
     ${props => props.showCanvas && css`
-    right: ${props.showCanvas ? '950px' : '-2000px'};
+    right: ${props.showCanvas ? '979px' : '-2000px'};
     transition: all ease-in-out .3s;
   `}
 `
@@ -79,7 +86,7 @@ export const CanvasWrapperLoad = styled.div`
 export const ImgBox = styled.div`
   position: absolute;
   top: 160px;
-  left: 480px;
+  left: 530px;
   z-index: 999;
   > img{
      height: 320px;
