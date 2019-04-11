@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react'
-import PropTypes from 'prop-types'
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 // *******************************************************
 // RAIL
@@ -12,7 +12,7 @@ const railOuterStyle = {
   borderRadius: 7,
   cursor: 'pointer',
   // border: '1px solid white',
-}
+};
 
 const railInnerStyle = {
   position: 'absolute',
@@ -22,7 +22,7 @@ const railInnerStyle = {
   borderRadius: 7,
   pointerEvents: 'none',
   backgroundColor: 'rgb(155,155,155)',
-}
+};
 
 export function SliderRail({ getRailProps }) {
   return (
@@ -30,12 +30,12 @@ export function SliderRail({ getRailProps }) {
       <div style={railOuterStyle} {...getRailProps()} />
       <div style={railInnerStyle} />
     </Fragment>
-  )
+  );
 }
 
 SliderRail.propTypes = {
   getRailProps: PropTypes.func.isRequired,
-}
+};
 
 // *******************************************************
 // HANDLE COMPONENT
@@ -81,7 +81,7 @@ export function Handle({
         }}
       />
     </Fragment>
-  )
+  );
 }
 
 Handle.propTypes = {
@@ -93,11 +93,11 @@ Handle.propTypes = {
   }).isRequired,
   getHandleProps: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
-}
+};
 
 Handle.defaultProps = {
   disabled: false,
-}
+};
 
 // *******************************************************
 // KEYBOARD HANDLE COMPONENT
@@ -128,7 +128,7 @@ export function KeyboardHandle({
       }}
       {...getHandleProps(id)}
     />
-  )
+  );
 }
 
 KeyboardHandle.propTypes = {
@@ -140,16 +140,18 @@ KeyboardHandle.propTypes = {
   }).isRequired,
   getHandleProps: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
-}
+};
 
 KeyboardHandle.defaultProps = {
   disabled: false,
-}
+};
 
 // *******************************************************
 // TRACK COMPONENT
 // *******************************************************
-export function Track({ source, target, getTrackProps, disabled }) {
+export function Track({
+  source, target, getTrackProps, disabled,
+}) {
   return (
     <div
       style={{
@@ -165,7 +167,7 @@ export function Track({ source, target, getTrackProps, disabled }) {
       }}
       {...getTrackProps()}
     />
-  )
+  );
 }
 
 Track.propTypes = {
@@ -181,11 +183,11 @@ Track.propTypes = {
   }).isRequired,
   getTrackProps: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
-}
+};
 
 Track.defaultProps = {
   disabled: false,
-}
+};
 
 // *******************************************************
 // TICK COMPONENT
@@ -217,7 +219,7 @@ export function Tick({ tick, count, format }) {
         {format(tick.value)}
       </div>
     </div>
-  )
+  );
 }
 
 Tick.propTypes = {
@@ -228,8 +230,8 @@ Tick.propTypes = {
   }).isRequired,
   count: PropTypes.number.isRequired,
   format: PropTypes.func.isRequired,
-}
+};
 
 Tick.defaultProps = {
   format: d => d,
-}
+};
