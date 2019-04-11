@@ -1,16 +1,13 @@
 MongoClient = require('mongodb').MongoClient;
-module.exports =  class mongodb{
-  constructor(){
-    this.db;
-    this.connect();
-  }
-  connect(){
+
+exports.getDb = () =>{
+  return new Promise((resolve, reject) => {
     MongoClient.connect(
-      'mongodb+srv://methodologies:password0@cluster0-zww5n.mongodb.net/test?retryWrites=true',
+      'mongodb+srv://methodologies:password0@cluster0-zww5n.mongodb.net/test?retryWrites=true', {useNewUrlParser: true},
       async (err, client) => {
-        if (err) return err;
-        this.db = client.db('lgp');
+        if (err) reject(err);
+        resolve(client.db('lgp'));
       },
     );
-  }
+  });
 };

@@ -1,52 +1,67 @@
 const mongodb = require('../config/mongo');
-const mogno = new mongodb();
 
-exports.getUserByUsername = username => {
-  return mogno.db.collection('users')
-    .find({ 'username' : username })
+exports.getUserByUsername = async username => {
+  return await mongodb.getDb().then((db)=>{
+    return db.collection('users')
+      .find({ 'username' : username })
+      .toArray();
+  })
+};
+
+exports.getUserByEmail = async email => {
+  return await mongodb.getDb().then((db)=>{
+    return mongodb.db.collection('users')
+      .find({ 'email' : email })
+      .toArray()
+  });
+};
+
+exports.queryUsers = async (query='') => {
+  return await mongodb.getDb().then((db)=>{
+    return db.collection('users')
+    .find()
     .toArray();
-};
-
-exports.getUserByEmail = email => {
-  return mogno.db.collection('users')
-    .find({ 'email' : email })
-    .toArray()
-};
-
-exports.queryUsers = (query='') => {
-  return mogno.db.collection('users')
-  .find()
-  .toArray();
+  });
 };
 
 exports.usernameExists = username => getUserByUsername(username).then(result => result != []);
 
 exports.emailExists = email => getUserByEmail(email).then(result => {result != []});
 
-exports.createUser = (username, email, password, rp = 0) => {
-  if (usernameExists(username)) {
+exports.createUser = async (username, email, password, rp = 0) => {
+  if (await usernameExists(username)) {
     return 'username already exists';
   }
-  if (emailExists(email)) {
+  if (await emailExists(email)) {
     return 'email already in use';
   }
   const user = {
     username, email, password, rp,
   };
-  mogno.db.collection('users').insertOne(user, (err) => {
-    if (err) return err;
-    const user = getUserByUsername(username)[0];
-    return user;
+
+  return await mongodb.getDb().then((db)=>{
+    return new Promise((resolve, reject) => {
+      db.collection('users').insertOne(user, (err) => {
+        if (err) reject(err);
+        const user = getUserByUsername(username)[0];
+        resolve(user);
+      });
+    });
   });
+
 };
 
-exports.deleteUser = (username, password) => {
-  if (usernameExists(username)) {
+exports.deleteUser = async(username, password) => {
+  if (await usernameExists(username)) {
     return 'user not found exists';
   }
-  mogno.db.collection('users').deleteOne({ username, password }, (err) => {
-    if (err) return err;
-    const user = getUserByUsername(username)[0];
-    return user;
+  return await mongodb.getDb().then((db)=>{
+    return new Promise((resolve, reject) => {
+      db.collection('users').deleteOne({ username, password }, (err) => {
+        if (err) reject(err);
+        const user = getUserByUsername(username)[0];
+        reslove(user);
+      });
+    });
   });
 };
