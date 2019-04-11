@@ -1,33 +1,35 @@
 const mongodb = require('../config/mongo');
 
-exports.getUserByUsername = async username => await mongodb.getDb().then(db => db
+const getUserByUsername = async username => await mongodb.getDb().then(db => db
   .collection('users')
   .find({ username })
   .toArray());
 
-exports.getUserByEmail = async email => await mongodb.getDb().then(db => mongodb.db
+const getUserByEmail = async email => await mongodb.getDb().then(db => mongodb.db
   .collection('users')
   .find({ email })
   .toArray());
 
-exports.queryUsers = async (query = '') => await mongodb.getDb().then(db => db
+const queryUsers = async (query = '') => await mongodb.getDb().then(db => db
   .collection('users')
   .find()
   .toArray());
 
-exports.usernameExists = username => getUserByUsername(username).then(result => result != []);
+const usernameExists = username => getUserByUsername(username).then(result => result !== []);
 
-exports.emailExists = email => getUserByEmail(email).then((result) => {
-  result != [];
+const emailExists = email => getUserByEmail(email).then((result) => {
+  result !== [];
 });
 
 exports.createUser = async (username, email, password, rp = 0) => {
-  if (await usernameExists(username)) {
-    return 'username already exists';
+  if (usernameExists(username)) {
+    throw new Error('username already exists');
   }
-  if (await emailExists(email)) {
-    return 'email already in use';
+
+  if (emailExists(email)) {
+    throw new Error('email already in use');
   }
+
   const user = {
     username,
     email,
@@ -47,8 +49,8 @@ exports.createUser = async (username, email, password, rp = 0) => {
 };
 
 exports.deleteUser = async (username, password) => {
-  if (await usernameExists(username)) {
-    return 'user not found exists';
+  if (usernameExists(username)) {
+    throw new Error('user not found exists');
   }
   return await mongodb.getDb().then(
     db => new Promise((resolve, reject) => {

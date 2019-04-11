@@ -24,10 +24,10 @@ exports.create = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
     userService.createUser(username, email, password).then((user) => {
-      if (user.username == username) {
+      if (user.username === username) {
         res.status(201).json({ created: username });
       } else {
-        res.status(401).json({ error: user });
+        throw new Error('User');
       }
     });
   } catch (error) {
