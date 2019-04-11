@@ -23,11 +23,19 @@ exports.show = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
-    userService.createUser(username, email, password).then((user) => {
-      if (user.username == username) {
-        res.status(201).json({ created: username });
-      } else {
-        res.status(401).json({ error: user });
+    userService.getUserByUsername(username).then((usersByUsername) => {
+      if (usersByUsername.length < 1) {
+        userService.getUserByEmail(email).then((usersByEmail) => {
+          if (usersByEmail.length < 1) {
+            userService.createUser(username, email, password).then((user) => {
+              if (user.username == username) {
+                res.status(201).json({ created: username });
+              } else {
+                res.status(401).json({ error: user });
+              }
+            });
+          }
+        });
       }
     });
   } catch (error) {
