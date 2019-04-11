@@ -2,7 +2,7 @@ const userService = require('../services/userService');
 
 exports.index = (req, res, next) => {
   try {
-    userService.queryUsers().then(result =>{
+    userService.queryUsers().then((result) => {
       res.status(200).json({ users: result });
     });
   } catch (error) {
@@ -22,13 +22,12 @@ exports.create = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
     userService.createUser(username, email, password).then((user) => {
-      if(user.username == username){
+      if (user.username == username) {
         res.status(201).json({ created: username });
-      }else{
-        res.status(401).json({error: user});
+      } else {
+        res.status(401).json({ error: user });
       }
-    })
-
+    });
   } catch (error) {
     next(error);
   }
