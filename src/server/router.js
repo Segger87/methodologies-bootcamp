@@ -1,12 +1,18 @@
 const express = require('express');
 
+const UsersController = require('./controllers/users');
+
 const mountRoutes = () => {
   const router = express.Router();
 
-  router.get('/greeting', (req, res) => {
-    res.send({ greeting: `Hello world!` });
-  });
+  // Users
+  router.get('/users', UsersController.index);
+  router.get('/users/:id', UsersController.show);
+  router.post('/users', UsersController.create);
+  router.put('/users/:id', UsersController.update);
+  router.delete('/users/:id', UsersController.destroy);
 
+  // Fall-through
   router.get('*', (req, res) => {
     res.status(404).json({ error: 'Not found' });
   });
