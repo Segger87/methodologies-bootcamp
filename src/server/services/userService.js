@@ -1,6 +1,6 @@
 const mongodb = require('../config/mongo');
 
-exports.getUserByUsername = async username => await mongodb.getDb().then(db => db
+const getUserByUsername = async username => await mongodb.getDb().then(db => db
   .collection('users')
   .find({ username })
   .toArray());
