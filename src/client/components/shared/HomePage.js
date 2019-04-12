@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import bannerImg from "../../assets/black.jpg";
 import Reviews from "./Reviews";
-import Shirtdesigner from './components/views/shirtDesigner/shirtdesigner';
 
 const HomePage = () => {
     return (
@@ -15,7 +14,6 @@ const HomePage = () => {
                 </div>
             </BannerSC>
             <Reviews />
-            <Shirtdesigner />
         </>
     );
 };

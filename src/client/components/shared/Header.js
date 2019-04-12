@@ -1,14 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 import AccountLink from "./AccountLink";
-import Nav from "./Nav";
+import Nav from "./nav";
 
 const Header = props => {
     return (
         <HeaderSC>
             <LogoWrapperSC>
-                <Logo />
+                <Link to='/'>
+                    <Logo />
+                </Link>
             </LogoWrapperSC>
             <NavSC>
                 <Nav />

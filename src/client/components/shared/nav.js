@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 const Nav = () => {
     const [selected, setSelected] = useState(0);
@@ -7,19 +8,20 @@ const Nav = () => {
     const toggleSelected = index => {
         setSelected(index);
     };
+
     const NavList = props => {
         const listItems = props.pages.map((title, index) => (
             <li isSelected={selected === index} key={index} onClick={() => toggleSelected(index)}>
-                {console.log(selected, index)}
-                <a isSelected={selected === index} href="#">
+                <Link isSelected={selected === index} to="/design">
                     {title}
-                </a>
+                </Link>
             </li>
         ));
 
         return <UlSC>{listItems}</UlSC>;
     };
-    return <NavList pages={["Custom Design", "Products", "Contact"]} />;
+
+    return <NavList pages={["Custom Design"]} />;
 };
 
 const UlSC = styled.ul`
